@@ -14,7 +14,7 @@ class indexing:
     # Logout { destroying Session object }
     def userlogout(req):
         try:
-            del req.session['regid']
+            del req.session['regid']  # Deleting Sessions
             del req.session['trid']
         except KeyError:
             pass
@@ -23,9 +23,12 @@ class indexing:
 
 class StudentMetaData:
     # Student Registration
-    def StudentRegi(self, req):
+    def StudentRegi(req):
+        # Generating random numbers for Register ID
         RegistrationID = random.randint(100000, 999999)
+
         if req.method == 'POST':
+            # fetching values from HTML Form
             FirstName = req.POST['firstName']
             LastName = req.POST['lastName']
             RollNumber = req.POST['RollNumber']
@@ -35,6 +38,7 @@ class StudentMetaData:
             Password = req.POST['password']
             ConfPassword = req.POST['password_confirm']
 
+            # if all values from HTML form are available or not
             if FirstName and LastName and RollNumber and Standard and Class and Mobile and Password and ConfPassword:
                 if Password == ConfPassword:
                     # Initialise Database object
@@ -80,15 +84,19 @@ class StudentMetaData:
     # Student Dashboard
     @staticmethod
     def StudentDash(req):
+        # fetching session variable/ID
         getstudentid = req.session.get('regid')
+        # if session key is valid then show Student data
         if req.session.has_key('regid'):
             Students = student_registration.objects.get(regiid=getstudentid)
-            return render(req, 'StudentDash.html', {'StudentData': Students})
+            return render(req, 'StudentDash.html',
+                          {'StudentData': Students})  # Forwarding Student Dashboard with database object
         else:
             return redirect('login')
         return render(req, 'StudentDash.html')
 
 
+# Class for Teacher Data
 class TeacherMetaData:
     # Teacher Registration
     def TeacherRegi(req):
@@ -126,17 +134,22 @@ class TeacherMetaData:
     # Teacher Login
     def TeacherLogin(req):
         if req.method == 'POST':
+            # Fetching HTML form datas
             mobile = req.POST.get('TeacherContact')
             password = req.POST.get('loginpass')
-            TechAuth = teacher_registration.objects.get(contactNumb=mobile, password=password, personis='Teacher')
+            # Checking values of Form data and database data
+            TechAuth = teacher_registration.objects.get(contactNumb=mobile, password=password)
             if TechAuth:
+                # Generating session Key variable
                 req.session['trid'] = TechAuth.regiid
-                return redirect('TeacherDash')
+                return redirect('TeacherDash')  # Redirect to Teacher Dashboard
             else:
                 return render(req, 'Teacherlogin.html')
         return render(req, 'Teacherlogin.html')
 
+    # Teacher Dashboard
     def TeacherDash(req):
+        # Validating session key variable and show teacher's data else redirect to Teacher Login
         getTeacherID = req.session.get('trid')
         if req.session.has_key('trid'):
             Teachers = teacher_registration.objects.get(regiid=getTeacherID)

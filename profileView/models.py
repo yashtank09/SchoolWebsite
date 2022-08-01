@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 class student_registration(models.Model):
+    # This model is for Student Data
     regiid = models.IntegerField(primary_key=True)
     personis = models.CharField(max_length=15, default='Student')
     FirstName = models.CharField(max_length=30, null=False)
@@ -15,6 +16,7 @@ class student_registration(models.Model):
 
 
 class teacher_registration(models.Model):
+    # This model is for Teacher Data
     regiid = models.IntegerField(primary_key=True)
     personis = models.CharField(max_length=15, default='Teacher')
     FirstName = models.CharField(max_length=30, null=False)
