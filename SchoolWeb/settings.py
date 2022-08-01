@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'profileView'
+    'profileView' # Registered our `profileView` app in INSTALLED_APPS list
 ]
 
 MIDDLEWARE = [
@@ -71,6 +71,7 @@ WSGI_APPLICATION = 'SchoolWeb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# MySql database connection
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

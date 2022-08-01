@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Student Login</title>
 </head>
 <body>
-<h3>Login</h3>
+<h3>Student Login</h3>
+<!-- Student Login form -->
     <form action="" method="POST">
         {% csrf_token %}
+        <!-- Login using Mobile Number -->
         <label>Enter register Mobile: </label>
         <input type="number" name="mobile" required/><br>
 
@@ -16,7 +18,6 @@
 
         <input type="submit" name="submit" id="submit" value="Login" required/>
     </form>
-    <h4>{{ logout }}</h4>
 </body>
 <script type="text/javascript">
    /* $('button').click(function (que)

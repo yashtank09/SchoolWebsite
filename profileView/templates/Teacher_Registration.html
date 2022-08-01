@@ -46,7 +46,7 @@
         </div>
 
         <div class="control-group">
-            <!-- Class Thought -->
+            <!-- Class Thought selecting by options -->
             <label class="control-label" for="classThoought">Class Thought</label>
             <div class="controls">
                 <select id="classThoought" name="classThoought" aria-label="Default select example" required>
@@ -99,11 +99,13 @@
     </fieldset>
 </form>
 <script>
+    // Confirming Password match
     $('#password_confirm').on('keyup', function () {
         if ($(this).val() == $('#password').val()) {
             $('#message').html('matching').css('color', 'green');
         } else $('#message').html('not matching').css('color', 'red');
     });
+    // This will alert when password not matching
     var PassNotMatch = '{{ passnotmatch }}';
     if(PassNotMatch) {
         window.alert(PassNotMatch);
