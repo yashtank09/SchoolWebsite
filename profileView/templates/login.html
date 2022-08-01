@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h3>Login</h3>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label>Enter register Mobile: </label>
+        <input type="number" name="mobile" required/><br>
+
+        <label>Enter Password: </label>
+        <input type="password" name="loginpass" required/><br>
+
+        <input type="submit" name="submit" id="submit" value="Login" required/>
+    </form>
+    <h4>{{ logout }}</h4>
+</body>
+<script type="text/javascript">
+   /* $('button').click(function (que)
+        {
+            que.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/ques',
+                data: {
+                    user_question: $('#user_qus').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                },
+                success: function () {
+                    alert("You sent a question.")
+                }
+            })
+        }); */
+</script>
+</html>
