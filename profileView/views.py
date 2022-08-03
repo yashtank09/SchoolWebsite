@@ -69,16 +69,19 @@ class StudentMetaData:
     def login(req):
         # Checking request is equal to POST, redirect to Login page
         if req.method == 'POST':
-            mobile = req.POST.get('mobile')
-            password = req.POST.get('loginpass')
-            StudAuth = student_registration.objects.get(mobile=mobile, password=password)
+            try:
+                mobileStud = req.POST.get('mobile')
+                password = req.POST.get('loginpass')
+                StudAuth = student_registration.objects.get(mobile=mobileStud, password=password)
+            except student_registration.DoesNotExist:
+                StudAuth = False
             # if credentials for login are satisfied, Redirect to Student Dashboard else: Again login page
             if StudAuth:
                 # Creating Session Object
                 req.session['regid'] = StudAuth.regiid
                 return redirect('StudentDash')
             else:
-                return render(req, 'login.html')
+                return redirect('login')
         return render(req, 'login.html')
 
     # Student Dashboard
@@ -134,11 +137,15 @@ class TeacherMetaData:
     # Teacher Login
     def TeacherLogin(req):
         if req.method == 'POST':
-            # Fetching HTML form datas
-            mobile = req.POST.get('TeacherContact')
-            password = req.POST.get('loginpass')
-            # Checking values of Form data and database data
-            TechAuth = teacher_registration.objects.get(contactNumb=mobile, password=password)
+            # Handle exception Data dose not exist
+            try:
+                # Fetching HTML form datas
+                mobile = req.POST.get('TeacherContact')
+                password = req.POST.get('loginpass')
+                # Checking values of Form data and database data
+                TechAuth = teacher_registration.objects.get(contactNumb=mobile, password=password)
+            except teacher_registration.DoesNotExist:
+                TechAuth = False
             if TechAuth:
                 # Generating session Key variable
                 req.session['trid'] = TechAuth.regiid
